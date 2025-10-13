@@ -7,6 +7,25 @@ It provisions a <b>Resource Group</b>, a <b>Virtual Network</b>, and <b>five Sub
 
 <hr>
 
+<h2>⚙️ Dynamic Block in Terraform</h2>
+
+<p>
+  The <b>dynamic block</b> in Terraform allows you to create multiple nested configuration blocks based on variable input — removing repetitive code and making configurations more scalable.<br>
+  In this project, the <b>dynamic block</b> is used to create <b>multiple subnets</b> inside a single <b>Virtual Network</b> dynamically.
+</p>
+
+<h3>🧩 Example Use Case</h3>
+
+<p>
+  Here we are creating:
+</p>
+<ul>
+  <li>1 Resource Group</li>
+  <li>1 Virtual Network</li>
+  <li>5 Subnets (using a Dynamic Block)</li>
+</ul>
+
+
 <h2>📁 Project Structure</h2>
 
 <pre>
@@ -75,25 +94,6 @@ It provisions a <b>Resource Group</b>, a <b>Virtual Network</b>, and <b>five Sub
 
 <hr>
 
-<hr>
-
-<h2>⚙️ Dynamic Block in Terraform</h2>
-
-<p>
-  The <b>dynamic block</b> in Terraform allows you to create multiple nested configuration blocks based on variable input — removing repetitive code and making configurations more scalable.<br>
-  In this project, the <b>dynamic block</b> is used to create <b>multiple subnets</b> inside a single <b>Virtual Network</b> dynamically.
-</p>
-
-<h3>🧩 Example Use Case</h3>
-
-<p>
-  Here we are creating:
-</p>
-<ul>
-  <li>1 Resource Group</li>
-  <li>1 Virtual Network</li>
-  <li>5 Subnets (using a Dynamic Block)</li>
-</ul>
 
 <h3>📘 Terraform Code Example</h3>
 
@@ -101,15 +101,15 @@ It provisions a <b>Resource Group</b>, a <b>Virtual Network</b>, and <b>five Sub
 # Resource Group
 resource "azurerm_resource_group" "rg" {
   name     = "demo-rg"
-  location = "Central India"
+  location = "WestEurope"
 }
 
 # Virtual Network with Dynamic Subnets
 resource "azurerm_virtual_network" "vnet" {
   name                = "demo-vnet"
   address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = "WestEurope"
+  resource_group_name = "demo-rg"
 
   dynamic "subnet" {
     for_each = var.subnets
@@ -125,19 +125,33 @@ resource "azurerm_virtual_network" "vnet" {
 
 <pre><code class="language-hcl">
 variable "subnets" {
-  description = "List of subnets to create dynamically"
-  type = list(object({
-    name           = string
-    address_prefix = string
-  }))
-  default = [
-    { name = "subnet-1", address_prefix = "10.0.1.0/24" },
-    { name = "subnet-2", address_prefix = "10.0.2.0/24" },
-    { name = "subnet-3", address_prefix = "10.0.3.0/24" },
-    { name = "subnet-4", address_prefix = "10.0.4.0/24" },
-    { name = "subnet-5", address_prefix = "10.0.5.0/24" }
-  ]
+
+  }
+
+  
+  subnets =  {
+    subnet1 =  {
+        subnet-name = "subnet-1"
+        address-prefixes = ["10.0.1.0/24"]
+  }
+  subnet2 =  {
+        subnet-name = "subnet-2"
+        address-prefixes = ["10.0.2.0/24"]
+  }
+  subnet3 =  {
+        subnet-name = "subnet-3"
+        address-prefixes = ["10.0.3.0/24"]
+  }
+  subnet4 =  {
+        subnet-name = "subnet-4"
+        address-prefixes = ["10.0.4.0/24"]
+  }
+  subnet5 =  {
+        subnet-name = "subnet-5"
+        address-prefixes = ["10.0.5.0/24"]
+  }
 }
+
 </code></pre>
 
 <h3>🖥️ Terraform Output Example</h3>
