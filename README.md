@@ -94,7 +94,6 @@ It provisions a <b>Resource Group</b>, a <b>Virtual Network</b>, and <b>five Sub
 
 <hr>
 
-
 <h3>📘 Terraform Code Example</h3>
 
 <pre><code class="language-hcl">
@@ -126,11 +125,10 @@ resource "azurerm_virtual_network" "vnet" {
 <pre><code class="language-hcl">
 variable "subnets" {
 
-  }
-
+}
   
-  subnets =  {
-    subnet1 =  {
+subnets =  {
+  subnet1 =  {
         subnet-name = "subnet-1"
         address-prefixes = ["10.0.1.0/24"]
   }
@@ -190,3 +188,17 @@ subnets   = [
 </ul>
 
 <hr>
+
+<h2>🤝 Contribution</h2>
+
+<p>
+  Contributions are always welcome!<br>
+  If you’d like to improve or extend this project, please fork the repository and submit a pull request.
+</p>
+
+<hr>
+
+<p align="center">
+  Made with ❤️ using <b>Terraform</b> and <b>Microsoft Azure</b>.<br>
+  <i>Automate • Deploy • Scale</i>
+</p>
