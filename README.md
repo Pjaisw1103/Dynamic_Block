@@ -1,204 +1,239 @@
-<h1 align="center">🌐 Terraform Azure Infrastructure Automation</h1>
+# 🌐 Azure Network Automation with Terraform Dynamic Blocks
 
 <p align="center">
-This project automates the creation of Azure resources using <b>Terraform</b>.<br>
-It provisions a <b>Resource Group</b>, a <b>Virtual Network</b>, and <b>five Subnets</b> — making environment setup consistent and repeatable.
+  <img src="https://capsule-render.vercel.app/api?type=waving&height=240&text=Terraform%20Dynamic%20Blocks&fontSize=40&fontAlignY=40&desc=Azure%20Networking%20%7C%20Reusable%20Infrastructure%20as%20Code&descAlignY=60&fontColor=ffffff&animation=fadeIn&color=0:0078D4,50:623CE4,100:0D1117"/>
 </p>
 
-<hr>
-
-<h2>⚙️ Dynamic Block in Terraform</h2>
-
-<p>
-  The <b>dynamic block</b> in Terraform allows you to create multiple nested configuration blocks based on variable input — removing repetitive code and making configurations more scalable.<br>
-  In this project, the <b>dynamic block</b> is used to create <b>multiple subnets</b> inside a single <b>Virtual Network</b> dynamically.
+<p align="center">
+  <img src="https://img.shields.io/badge/Terraform-623CE4?style=for-the-badge&logo=terraform&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Microsoft%20Azure-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Dynamic%20Blocks-Reusable-success?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/IaC-Infrastructure%20as%20Code-orange?style=for-the-badge"/>
 </p>
 
-<h3>🧩 Example Use Case</h3>
+---
 
-<p>
-  Here we are creating:
-</p>
-<ul>
-  <li>1 Resource Group</li>
-  <li>1 Virtual Network</li>
-  <li>5 Subnets (using a Dynamic Block)</li>
-</ul>
+## 📌 Overview
 
+This project demonstrates how to use **Terraform Dynamic Blocks** to automate Azure networking infrastructure.
 
-<h2>📁 Project Structure</h2>
+Instead of manually defining multiple subnet blocks, the solution dynamically generates subnets using a structured variable, making the infrastructure scalable, reusable, and easier to maintain.
 
-<pre>
+### Resources Provisioned
+
+* Resource Group
+* Virtual Network (VNet)
+* Five Subnets
+* Environment-based configuration (Dev & Prod)
+
+---
+
+## 🏗️ Architecture
+
+```mermaid
+flowchart TD
+
+A[Terraform Configuration]
+--> B[Resource Group]
+
+B --> C[Virtual Network]
+
+C --> D[Dynamic Block]
+
+D --> E[Subnet 1]
+D --> F[Subnet 2]
+D --> G[Subnet 3]
+D --> H[Subnet 4]
+D --> I[Subnet 5]
+```
+
+---
+
+## ✨ Key Features
+
+| Feature                  | Description                                       |
+| ------------------------ | ------------------------------------------------- |
+| 🚀 Dynamic Blocks        | Automatically generates multiple subnet resources |
+| 🔄 Reusable Design       | Eliminates repetitive Terraform code              |
+| 🌐 Azure Networking      | Deploys VNet and subnet architecture              |
+| 🏗️ Modular Structure    | Uses reusable Terraform modules                   |
+| 🌍 Multi-Environment     | Supports Dev & Production environments            |
+| ⚡ Scalable Configuration | Easily increase subnet count                      |
+
+---
+
+## 📊 Infrastructure Overview
+
+| Resource          | Quantity   |
+| ----------------- | ---------- |
+| Resource Group    | 1          |
+| Virtual Network   | 1          |
+| Subnets           | 5          |
+| Terraform Modules | 2          |
+| Environments      | Dev & Prod |
+
+---
+
+## 📂 Repository Structure
+
+```text
 .
 ├── Environment
-│   ├── dev
+│   ├── dev/
 │   │   └── provider.tf
-│   └── prod
+│   │
+│   └── prod/
 │       └── provider.tf
 │
 ├── Module
-    ├── azurerm_resource_group
-    │   └── main.tf
-    └── azurerm_virtual_network
-        └── main.tf
-        ├── terraform.tfvars
-        └── variable.tf
-</pre>
+│   ├── azurerm_resource_group/
+│   │   └── main.tf
+│   │
+│   └── azurerm_virtual_network/
+│       ├── main.tf
+│       ├── variable.tf
+│       └── terraform.tfvars
+│
+└── README.md
+```
 
-<hr>
+---
 
-<h2>🏗️ Resources Created</h2>
+## 🛠️ Technology Stack
 
-<table>
-  <tr>
-    <th>Resource Type</th>
-    <th>Resource Name</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>Resource Group</td>
-    <td><b>demo-rg</b></td>
-    <td>Main container for all Azure resources</td>
-  </tr>
-  <tr>
-    <td>Virtual Network</td>
-    <td><b>demo-vnet</b></td>
-    <td>Virtual network spanning all subnets</td>
-  </tr>
-  <tr>
-    <td>Subnet 1</td>
-    <td>subnet-1</td>
-    <td>Address Prefix: <code>10.0.1.0/24</code></td>
-  </tr>
-  <tr>
-    <td>Subnet 2</td>
-    <td>subnet-2</td>
-    <td>Address Prefix: <code>10.0.2.0/24</code></td>
-  </tr>
-  <tr>
-    <td>Subnet 3</td>
-    <td>subnet-3</td>
-    <td>Address Prefix: <code>10.0.3.0/24</code></td>
-  </tr>
-  <tr>
-    <td>Subnet 4</td>
-    <td>subnet-4</td>
-    <td>Address Prefix: <code>10.0.4.0/24</code></td>
-  </tr>
-  <tr>
-    <td>Subnet 5</td>
-    <td>subnet-5</td>
-    <td>Address Prefix: <code>10.0.5.0/24</code></td>
-  </tr>
-</table>
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=terraform,azure,git,github,vscode"/>
+</p>
 
-<hr>
+---
 
-<h3>📘 Terraform Code Example</h3>
+## 🚀 Deployment
 
-<pre><code class="language-hcl">
-# Resource Group
-resource "azurerm_resource_group" "rg" {
-  name     = "demo-rg"
-  location = "WestEurope"
-}
+### Clone Repository
 
-# Virtual Network with Dynamic Subnets
-resource "azurerm_virtual_network" "vnet" {
-  name                = "demo-vnet"
-  address_space       = ["10.0.0.0/16"]
-  location            = "WestEurope"
-  resource_group_name = "demo-rg"
+```bash
+git clone <repository-url>
+cd project-directory
+```
 
-  dynamic "subnet" {
-    for_each = var.subnets
-    content {
-      name           = subnet.value.name
-      address_prefix = subnet.value.address_prefix
-    }
+### Initialize Terraform
+
+```bash
+terraform init
+```
+
+### Validate Configuration
+
+```bash
+terraform validate
+```
+
+### Preview Changes
+
+```bash
+terraform plan
+```
+
+### Apply Infrastructure
+
+```bash
+terraform apply -auto-approve
+```
+
+---
+
+## 💡 Dynamic Block Example
+
+```hcl
+dynamic "subnet" {
+
+  for_each = var.subnets
+
+  content {
+
+    name           = subnet.value.name
+
+    address_prefix = subnet.value.address_prefix
   }
 }
-</code></pre>
+```
 
-<h3>📦 Variable Example</h3>
+### Why Dynamic Blocks?
 
-<pre><code class="language-hcl">
-variable "subnets" {
+Without dynamic blocks, each subnet would require a separate configuration block.
 
-}
-  
-subnets =  {
-  subnet1 =  {
-        subnet-name = "subnet-1"
-        address-prefixes = ["10.0.1.0/24"]
-  }
-  subnet2 =  {
-        subnet-name = "subnet-2"
-        address-prefixes = ["10.0.2.0/24"]
-  }
-  subnet3 =  {
-        subnet-name = "subnet-3"
-        address-prefixes = ["10.0.3.0/24"]
-  }
-  subnet4 =  {
-        subnet-name = "subnet-4"
-        address-prefixes = ["10.0.4.0/24"]
-  }
-  subnet5 =  {
-        subnet-name = "subnet-5"
-        address-prefixes = ["10.0.5.0/24"]
-  }
-}
+Using dynamic blocks:
 
-</code></pre>
+* Less code
+* Better maintainability
+* Easier scalability
+* Environment flexibility
 
-<h3>🖥️ Terraform Output Example</h3>
+---
 
-<pre><code>
-# terraform apply
+## 📤 Example Output
 
-azurerm_resource_group.rg: Creating...
-azurerm_resource_group.rg: Creation complete after 2s [id=/subscriptions/.../demo-rg]
-
-azurerm_virtual_network.vnet: Creating...
-azurerm_virtual_network.vnet: Creation complete after 5s [id=/subscriptions/.../demo-vnet]
-
-Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
-
-Outputs:
-
+```text
 rg_name   = "demo-rg"
+
 vnet_name = "demo-vnet"
-subnets   = [
+
+subnets = [
   "subnet-1",
   "subnet-2",
   "subnet-3",
   "subnet-4",
   "subnet-5"
 ]
-</code></pre>
+```
 
-<h3>🧠 Key Takeaways</h3>
+---
 
-<ul>
-  <li><b>Dynamic Blocks</b> eliminate repetitive subnet declarations.</li>
-  <li>Useful when subnet count or configuration might change frequently.</li>
-  <li>Each subnet is generated automatically based on the <code>subnets</code> variable list.</li>
-  <li>Enhances scalability and keeps Terraform code DRY (Don’t Repeat Yourself).</li>
-</ul>
+## 🎯 Learning Outcomes
 
-<hr>
+* Terraform Dynamic Blocks
+* Azure Networking Fundamentals
+* Infrastructure as Code (IaC)
+* Reusable Terraform Modules
+* Environment-Based Deployments
+* Scalable Network Design
 
-<h2>🤝 Contribution</h2>
+---
 
-<p>
-  Contributions are always welcome!<br>
-  If you’d like to improve or extend this project, please fork the repository and submit a pull request.
-</p>
-
-<hr>
+## 📈 Project Highlights
 
 <p align="center">
-  Made with ❤️ using <b>Terraform</b> and <b>Microsoft Azure</b>.<br>
-  <i>Automate • Deploy • Scale</i>
+
+<img src="https://img.shields.io/badge/5-Subnets-0078D4?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/Dynamic%20Blocks-Terraform-623CE4?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/Dev%20%7C%20Prod-Environments-success?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/Azure-Networking-orange?style=for-the-badge"/>
+
+</p>
+
+---
+
+## 👩‍💻 Author
+
+**Priya Jaiswal**
+
+Azure Cloud | DevOps | Terraform
+
+<p align="center">
+  <a href="https://github.com/Pjaisw1103">
+    <img src="https://img.shields.io/badge/GitHub-Pjaisw1103-181717?style=for-the-badge&logo=github"/>
+  </a>
+
+  <a href="https://linkedin.com/in/priya-jaiswal1103">
+    <img src="https://img.shields.io/badge/LinkedIn-Priya%20Jaiswal-0078D4?style=for-the-badge&logo=linkedin"/>
+  </a>
+</p>
+
+---
+
+<p align="center">
+⭐ If you found this project useful, consider giving it a star.
 </p>
